@@ -1,1 +1,15 @@
+$theme-colors: (
+  'brand-blue-dark': #16629f,
+  'brand-blue-light': #4d96d7,
+  'brand-yellow': #ffb412,
+);
+
+$colors: (
+  'aqua': #00ffff,
+);
+
+$pagination-color: var(--info);
+$pagination-hover-color: var(--info);
+$pagination-active-bg: var(--info);
+
 @import '~bootstrap/scss/bootstrap';

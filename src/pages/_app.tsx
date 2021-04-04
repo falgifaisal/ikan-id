@@ -1,8 +1,16 @@
 import '../styles/globals.scss';
 import { AppProps /* , AppContext */ } from 'next/app';
+import { DefaultSeo } from 'next-seo';
+
+import seoConfig from 'constants/seo';
 
 function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+  return (
+    <>
+      <DefaultSeo {...seoConfig} />
+      <Component {...pageProps} />
+    </>
+  );
 }
 
 // Only uncomment this method if you have blocking data requirements for

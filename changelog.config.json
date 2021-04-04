@@ -1,15 +1,16 @@
 {
   "disableEmoji": true,
   "list": [
-    "test",
+    "chore",
+    "ci",
+    "docs",
     "feat",
     "fix",
-    "chore",
-    "docs",
+    "perf",
     "refactor",
+    "release",
     "style",
-    "ci",
-    "perf"
+    "test"
   ],
   "maxMessageLength": 64,
   "minMessageLength": 3,
@@ -22,7 +23,17 @@
     "issues",
     "lerna"
   ],
-  "scopes": ["init", "runner", "watcher", "config", "web-server", "proxy"],
+  "scopes": [
+    "init",
+    "runner",
+    "watcher",
+    "config",
+    "web-server",
+    "proxy",
+    "content",
+    "setup",
+    ""
+  ],
   "types": {
     "chore": {
       "description": "Build process or auxiliary tool changes",
