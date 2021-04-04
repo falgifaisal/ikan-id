@@ -1,12 +1,31 @@
 import { ReactElement } from 'react';
 
+import { formatStringUcFirst, formatNumber } from 'utils/common';
+import { formatDate } from 'utils/date';
+
 function Product(): ReactElement {
+  const currency: string = 'IDR';
   return (
     <div className="card border border-info">
       <div className="card-body">
         <h5 className="card-title">Special title treatment</h5>
         <p className="card-text">Ukuran: 20</p>
-        <p className="card-text small text-muted">
+        <p className="small text-muted">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            className="bi bi-calendar-check"
+            viewBox="0 0 16 16"
+          >
+            <path d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
+            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+          </svg>
+          {' '}
+          {formatDate('2020-07-27T01:11:05+07:00', 'dd MMM yyyy')}
+        </p>
+        <p className="small text-muted">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -18,10 +37,16 @@ function Product(): ReactElement {
             <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
           </svg>
           {' '}
-          PROBOLINGGO, JAWA TIMUR
+          {`${formatStringUcFirst('PROBOLINGGO')}, ${formatStringUcFirst(
+            'JAWA TIMUR',
+          )}`}
         </p>
       </div>
-      <div className="card-footer">Rp. 20.000</div>
+      <div className="card-footer">
+        {`${currency} ${formatNumber(
+          '20000',
+        )}`}
+      </div>
     </div>
   );
 }
