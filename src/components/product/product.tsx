@@ -1,10 +1,11 @@
 import { ReactElement } from 'react';
 
+import { defaultCurrency } from 'constants/common';
 import { formatStringUcFirst, formatNumber } from 'utils/common';
 import { formatDate } from 'utils/date';
 
 function Product(): ReactElement {
-  const currency: string = 'IDR';
+  const currency: string = defaultCurrency;
   return (
     <div className="card border border-info">
       <div className="card-body">
@@ -43,9 +44,7 @@ function Product(): ReactElement {
         </p>
       </div>
       <div className="card-footer">
-        {`${currency} ${formatNumber(
-          '20000',
-        )}`}
+        <p className="card-text">{`${currency} ${formatNumber('20000')}`}</p>
       </div>
     </div>
   );

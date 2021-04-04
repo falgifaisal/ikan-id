@@ -5,7 +5,7 @@ import Pagination from 'components/pagination';
 function Home() {
   return (
     <Layout title="Home">
-      <h1>Ditemukan harga komoditas ikan:</h1>
+      <h1>Ditemukan harga komoditas ikan: </h1>
       <div className="row mb-4">
         <div className="col-sm">
           <Product />

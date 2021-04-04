@@ -33,8 +33,9 @@ function Filter(): ReactElement {
                   className="form-select form-select-sm mb-4"
                   aria-label="Default select example"
                 >
-                  <option selected>Buka Cari Provinsi</option>
-                  <option value="1">One</option>
+                  <option value="1" selected>
+                    One
+                  </option>
                   <option value="2">Two</option>
                   <option value="3">Three</option>
                 </select>
@@ -42,8 +43,9 @@ function Filter(): ReactElement {
                   className="form-select form-select-sm mb-4"
                   aria-label="Default select example"
                 >
-                  <option selected>Buka Cari Kota/Kabupaten</option>
-                  <option value="1">One</option>
+                  <option value="1" selected>
+                    One
+                  </option>
                   <option value="2">Two</option>
                   <option value="3">Three</option>
                 </select>
@@ -52,8 +54,9 @@ function Filter(): ReactElement {
                   className="form-select form-select-sm mb-4"
                   aria-label="Default select example"
                 >
-                  <option selected>Buka Cari Ukuran</option>
-                  <option value="1">One</option>
+                  <option value="1" selected>
+                    One
+                  </option>
                   <option value="2">Two</option>
                   <option value="3">Three</option>
                 </select>

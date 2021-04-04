@@ -5,7 +5,7 @@ import styles from './hero.module.scss';
 function Hero(): ReactElement {
   return (
     <>
-      <div className={`${styles.card} card mb-5`}>
+      <div className={`${styles.customCard} card mb-5`}>
         <div className="card-body">
           <h2 className="card-title">Harga Ikan Indonesia</h2>
           <p className="card-text">

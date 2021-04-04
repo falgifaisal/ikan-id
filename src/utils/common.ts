@@ -3,5 +3,8 @@ export function formatNumber(value: number | string, format = 'id-ID'): string {
 }
 
 export function formatStringUcFirst(value: string): string {
-  return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
+  const valueArr = value.split(' ');
+  return valueArr
+    .map((val) => val[0].toUpperCase() + val.substring(1).toLowerCase())
+    .join(' ');
 }
