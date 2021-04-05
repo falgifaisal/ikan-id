@@ -1,15 +1,36 @@
-import { useQuery } from 'react-query';
+import { QueryClient, useQuery, useMutation } from 'react-query';
 
-import { fetchGetSize, fetchGetArea, fetchGetProduct } from './api';
+import {
+  fetchGetSize,
+  fetchGetArea,
+  fetchGetProduct,
+  fetchPostProduct,
+  fetchPatchProduct,
+  fetchDeleteProduct,
+} from './api';
 
-export function useSizes(params?: any) {
+export const queryClient = new QueryClient();
+
+export function useQuerySizes(params?: any) {
   return useQuery<any, any>(['sizes', params], () => fetchGetSize(params));
 }
 
-export function useAreas(params?: any) {
+export function useQueryAreas(params?: any) {
   return useQuery<any, any>(['areas', params], () => fetchGetArea(params));
 }
 
-export function useProducts(params?: any) {
+export function useQueryProducts(params?: any) {
   return useQuery<any, any>(['products', params], () => fetchGetProduct(params));
+}
+
+export function usePostProducts(payloads?: any) {
+  return useMutation(() => fetchPostProduct(payloads));
+}
+
+export function useUpdateProducts(paramsPayloads?: any) {
+  return useMutation(() => fetchPatchProduct(paramsPayloads.params, paramsPayloads.payloads));
+}
+
+export function useDeleteProducts(params?: any) {
+  return useMutation(() => fetchDeleteProduct(params));
 }

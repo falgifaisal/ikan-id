@@ -1,12 +1,12 @@
 import { ReactElement } from 'react';
 
 import { useAppContext } from 'context/app-context';
-import { useSizes } from 'utils/hooks';
+import { useQuerySizes } from 'utils/hooks';
 
 function SelectProvince(): ReactElement {
   const {
     isLoading, isError, error, data,
-  } = useSizes('');
+  } = useQuerySizes('');
   const { globalState, setState } = useAppContext();
   const { size } = globalState;
   return (

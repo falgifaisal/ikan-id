@@ -1,9 +1,12 @@
 import { ReactElement } from 'react';
 import Image from 'next/image';
 
+import { useAppContext } from 'context/app-context';
 import styles from './header.module.scss';
 
 function Header(): ReactElement {
+  const { globalState, setState } = useAppContext();
+  const { isAdmin } = globalState;
   return (
     <header>
       <nav className="navbar navbar-expand navbar-light sticky-top bg-light border-bottom border-dark">
@@ -24,7 +27,36 @@ function Header(): ReactElement {
           <h1 className="text-info mb-0">Ikan-ID</h1>
           <div>
             <ul className="navbar-nav mr-auto">
-              <li className="nav-item active">
+              <li className={`nav-item ${isAdmin ? 'active' : ''}`}>
+                <a
+                  className={`nav-link ${isAdmin ? 'text-info' : ''}`}
+                  href="/#"
+                  title={`Ubah sebagai user ${isAdmin ? 'Admin' : 'Biasa'}`}
+                  onClick={() => setState({ isAdmin: !isAdmin })}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    className="bi bi-person-check-fill"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M15.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L12.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"
+                    />
+                    <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                  </svg>
+                  {' '}
+                  {isAdmin ? (
+                    <span className="text-info small">Admin</span>
+                  ) : (
+                    ''
+                  )}
+                </a>
+              </li>
+              <li className="nav-item">
                 <a
                   className="nav-link"
                   href="https://github.com/danangekal"

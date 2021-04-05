@@ -2,12 +2,12 @@ import { ReactElement } from 'react';
 
 import { useAppContext } from 'context/app-context';
 import { sortArrayObject, removeDuplicateObjectArray } from 'utils/common';
-import { useAreas } from 'utils/hooks';
+import { useQueryAreas } from 'utils/hooks';
 
 function SelectProvince(): ReactElement {
   const {
     isLoading, isError, error, data,
-  } = useAreas('');
+  } = useQueryAreas('');
   const { globalState, setState } = useAppContext();
   const { province } = globalState;
   return (

@@ -211,10 +211,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           const data: any = await store.delete(sheetProduct, { search });
           res.status(200).json({
             message:
-              data?.totalUpdatedRows > 0
+              data?.clearedRowsCount > 0
                 ? 'Successfully updated data'
                 : 'No updated data',
-            isSuccess: data?.totalUpdatedRows > 0,
+            isSuccess: data?.clearedRowsCount > 0,
             data,
           });
         } else {

@@ -6,6 +6,17 @@ You can check [demo](https://ikan-id-demo.vercel.app/)
 
 ## Features
 
+- Create product as Admin
+- Read (product/area/size)
+- Update product as Admin
+- Delete product as Admin
+- Responsive web
+- SEO
+- PWA
+- SSR
+
+## Tech
+
 - [React.js 17](https://reactjs.org/blog/2020/10/20/react-v17.html) - Blog introduce react v17.0.
 - [Next.js 10](https://nextjs.org/blog/next-10) - Blog introduce next.js 10.
 - [Bootsrap 4](https://getbootstrap.com/docs/4.6/getting-started/introduction/) - Documentaion of bootstrap 4 for manage styling.
