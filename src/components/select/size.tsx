@@ -13,7 +13,8 @@ function SelectProvince(): ReactElement {
     <>
       <select
         className="form-select form-select-sm mb-4"
-        value={size}
+        defaultValue=""
+        value={size || ''}
         onChange={(e) => setState({ size: e.target.value })}
       >
         {isLoading && (
@@ -27,9 +28,7 @@ function SelectProvince(): ReactElement {
           </option>
         )}
         {data?.count > 0 ? (
-          <option value="" selected>
-            Pilih Ukuran
-          </option>
+          <option value="">Pilih Ukuran</option>
         ) : (
           <option value="" disabled selected>
             Data tidak ditemukan

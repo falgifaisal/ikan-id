@@ -14,7 +14,8 @@ function SelectCity(): ReactElement {
     <>
       <select
         className="form-select form-select-sm mb-4"
-        value={city}
+        defaultValue=""
+        value={city || ''}
         onChange={(e) => setState({ city: e.target.value })}
       >
         {isLoading && (
@@ -28,9 +29,7 @@ function SelectCity(): ReactElement {
           </option>
         )}
         {data?.count > 0 ? (
-          <option value="" selected>
-            Pilih Kota
-          </option>
+          <option value="">Pilih Kota</option>
         ) : (
           <option value="" disabled selected>
             Data tidak ditemukan

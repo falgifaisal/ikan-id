@@ -3,7 +3,11 @@ import SteinStore from 'stein-js-client';
 import { v4 as uuidv4 } from 'uuid';
 
 import { baseApiUrlExternal, sheetProduct } from 'constants/common';
-import { formatStringUcFirst, removeDuplicateObjectArray } from 'utils/common';
+import {
+  formatStringUcFirst,
+  removeDuplicateObjectArray,
+  sortArrayObject,
+} from 'utils/common';
 import { formatDate } from 'utils/date';
 
 const store: any = new SteinStore(baseApiUrlExternal);
@@ -12,7 +16,15 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const {
     method,
     query: {
-      limit, offset, uuid, commodity, province, city, size, price,
+      sort,
+      limit,
+      offset,
+      uuid,
+      commodity,
+      province,
+      city,
+      size,
+      price,
     },
     body,
   } = req;
@@ -97,7 +109,15 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     case 'GET':
       try {
         const result: any = await store.read(sheetProduct, params);
-        const data: any = removeDuplicateObjectArray(result, 'uuid');
+        let data: any = removeDuplicateObjectArray(result, 'uuid');
+        if (sort === 'highest') {
+          data = sortArrayObject(data, 'price', 'desc');
+        } else if (sort === 'lowest') {
+          data = sortArrayObject(data, 'price', 'asc');
+        } else if (sort === 'newest') {
+          data = sortArrayObject(data, 'timestamp', 'desc');
+        }
+
         res.status(200).json({
           message: data?.length > 0 ? 'Successfully retrieved data' : 'No data',
           isSuccess: data?.length > 0,

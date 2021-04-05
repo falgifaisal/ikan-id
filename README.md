@@ -8,6 +8,9 @@ You can check [demo](https://ikan-id-demo.vercel.app/)
 
 - Create product as Admin -> switch admin mode on right header with icon user check
 - Read (product/area/size)
+- Filter product
+- Sort product
+- Search product
 - Update product as Admin -> switch admin mode on right header with icon user check
 - Delete product as Admin -> switch admin mode on right header with icon user check
 - Responsive web

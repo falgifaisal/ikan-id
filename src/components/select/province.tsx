@@ -14,7 +14,8 @@ function SelectProvince(): ReactElement {
     <>
       <select
         className="form-select form-select-sm mb-4"
-        value={province}
+        defaultValue=""
+        value={province || ''}
         onChange={(e) => setState({ province: e.target.value })}
       >
         {isLoading && (
@@ -28,9 +29,7 @@ function SelectProvince(): ReactElement {
           </option>
         )}
         {data?.count > 0 ? (
-          <option value="" selected>
-            Pilih Provinsi
-          </option>
+          <option value="">Pilih Provinsi</option>
         ) : (
           <option value="" disabled selected>
             Data tidak ditemukan

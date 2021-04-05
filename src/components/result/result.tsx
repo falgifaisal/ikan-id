@@ -9,13 +9,13 @@ import { useQueryProducts } from 'utils/hooks';
 function Result(): ReactElement {
   const { globalState } = useAppContext();
   const {
-    commodity, province, city, size, isAdmin,
+    commodity, province, city, size, sort, isAdmin,
   } = globalState;
   // const paging: number = page || 1;
   // const offset: number = page ? ((paging * defaultLimit) - defaultLimit) : 0;
   const params: string = `?commodity=${commodity || ''}&province=${
     province || ''
-  }&city=${city || ''}&size=${size || ''}`;
+  }&city=${city || ''}&size=${size || ''}&sort=${sort || ''}`;
   const {
     isLoading, isError, error, data,
   } = useQueryProducts(params);

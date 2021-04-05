@@ -5,18 +5,15 @@ import { useAppContext } from 'context/app-context';
 function SelectSorting(): ReactElement {
   const { globalState, setState } = useAppContext();
   const { sort } = globalState;
-
   return (
     <>
       <select
         className="form-select form-select-sm mb-4"
-        value={sort}
+        defaultValue=""
+        value={sort || ''}
         onChange={(e) => setState({ sort: e.target.value })}
       >
         <option value="">Pilih Urutan</option>
-        <option value="selected" selected>
-          Paling Sesuai
-        </option>
         <option value="newest">Terbaru</option>
         <option value="highest">Harga tertinggi</option>
         <option value="lowest">Harga termurah</option>
