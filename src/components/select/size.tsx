@@ -26,9 +26,13 @@ function SelectProvince(): ReactElement {
             {error?.message}
           </option>
         )}
-        {data?.data?.length && (
+        {data?.count > 0 ? (
           <option value="" selected>
             Pilih Ukuran
+          </option>
+        ) : (
+          <option value="" disabled selected>
+            Data tidak ditemukan
           </option>
         )}
         {data?.data?.length

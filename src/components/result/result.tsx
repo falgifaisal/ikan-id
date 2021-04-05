@@ -33,27 +33,23 @@ function Result(): ReactElement {
           </p>
         </div>
       )}
-      {data?.data?.length ? (
+      {data?.count > 0 && (
         <h5>
           Ditemukan harga komoditas ikan:
           {`${data.data.length} Data`}
         </h5>
-      ) : (
-        <h5>Tidak ditemukan data</h5>
       )}
+      {data?.count === 0 && <h5>Data tidak ditemukan</h5>}
       <div className="row mb-4">
-        {data?.data?.length ? (
-          data?.data?.map((val: any) => (
+        {data?.count > 0
+          && data?.data?.map((val: any) => (
             <div
               key={`${val.uuid}-${val.komoditas}-${val.province}-${val.city}`}
               className="col-sm-3 my-4"
             >
               <Product {...val} />
             </div>
-          ))
-        ) : (
-          <div className="col-sm-12">No Product</div>
-        )}
+          ))}
       </div>
       {/* <Pagination /> */}
     </>
