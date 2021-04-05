@@ -1,5 +1,5 @@
 /* eslint-disable react/destructuring-assignment */
-import { ReactElement, useState } from 'react';
+import { ReactElement, useState, createRef } from 'react';
 
 import { defaultCurrency } from 'constants/common';
 import { formatStringUcFirst, formatNumber } from 'utils/common';
@@ -47,11 +47,9 @@ function Product(props: ProductProps): ReactElement {
   const mutationPost = usePostProducts(payloads);
   const mutationUpdate = useUpdateProducts(paramsPayloads);
   const mutationDelete = useDeleteProducts(params);
+  const inputRef: any = createRef();
 
   function handleCancel() {
-    if (!isAdd) {
-      setIsEdit(!isEdit);
-    }
     setPayloads({
       commodity: komoditas,
       size,
@@ -59,6 +57,14 @@ function Product(props: ProductProps): ReactElement {
       province,
       city,
     });
+
+    if (!isAdd) {
+      setIsEdit(!isEdit);
+    }
+
+    if (isAdd && inputRef) {
+      inputRef.current.focus();
+    }
   }
 
   function handleSave() {
@@ -147,6 +153,7 @@ function Product(props: ProductProps): ReactElement {
         {isEdit || isAdd ? (
           <>
             <input
+              ref={inputRef}
               className={`form-control form-control-sm mb-2 ${
                 payloads.commodity ? 'is-valid' : 'is-invalid'
               }`}
