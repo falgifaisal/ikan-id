@@ -4,11 +4,15 @@ import { dehydrate } from 'react-query/hydration';
 // import { defaultLimit } from 'constants/common';
 import { fetchGetSize, fetchGetArea, fetchGetProduct } from 'utils/api';
 import Layout from 'components/layout';
+import Search from 'components/search';
+import FilterSort from 'components/filter-sort';
 import Result from 'components/result';
 
 function Home() {
   return (
     <Layout title="Home">
+      <Search />
+      <FilterSort />
       <Result />
     </Layout>
   );

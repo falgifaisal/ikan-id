@@ -5,7 +5,6 @@ import { useAppContext } from 'context/app-context';
 import Product from 'components/product';
 // import Pagination from 'components/pagination';
 import { useProducts } from 'utils/hooks';
-import styles from './result.module.scss';
 
 function Result(): ReactElement {
   const { globalState } = useAppContext();
@@ -22,17 +21,9 @@ function Result(): ReactElement {
   } = useProducts(params);
   return (
     <>
-      <h5>
-        Ditemukan harga komoditas ikan:
-        {' '}
-        {data?.data?.length ? `${data.data.length} Data` : ''}
-      </h5>
       {isLoading && (
         <div className="d-flex justify-content-center align-items-center mb-4">
-          <div
-            className={`${styles.customSpinnerGrow} spinner-grow text-info`}
-            role="status"
-          />
+          <div className="spinner-grow hw-10 text-info" role="status" />
         </div>
       )}
       {isError && (
@@ -42,16 +33,27 @@ function Result(): ReactElement {
           </p>
         </div>
       )}
+      {data?.data?.length ? (
+        <h5>
+          Ditemukan harga komoditas ikan:
+          {`${data.data.length} Data`}
+        </h5>
+      ) : (
+        <h5>Tidak ditemukan data</h5>
+      )}
       <div className="row mb-4">
-        {data?.data?.length
-          && data?.data?.map((val: any) => (
+        {data?.data?.length ? (
+          data?.data?.map((val: any) => (
             <div
               key={`${val.uuid}-${val.komoditas}-${val.province}-${val.city}`}
               className="col-sm-3 my-4"
             >
               <Product {...val} />
             </div>
-          ))}
+          ))
+        ) : (
+          <div className="col-sm-12">No Product</div>
+        )}
       </div>
       {/* <Pagination /> */}
     </>
