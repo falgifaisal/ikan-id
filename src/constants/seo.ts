@@ -1,8 +1,7 @@
 const seo = {
   title: 'Home',
   titleTemplate: '%s | Ikan ID',
-  description:
-    'Ini adalah home sample sistem informasi tentang komoditi ika di indonesia',
+  description: 'Unofficial web informasi komoditas ikan indonesia',
   additionalMetaTags: [
     {
       property: 'author',
@@ -11,6 +10,16 @@ const seo = {
     {
       name: 'Ikan-ID',
       content: 'Ikan-ID',
+    },
+  ],
+  additionalLinkTags: [
+    {
+      rel: 'icon',
+      href: '/favicon.ico',
+    },
+    {
+      rel: 'manifest',
+      href: '/manifest.json',
     },
   ],
 };
