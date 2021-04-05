@@ -1,84 +1,30 @@
+import { QueryClient } from 'react-query';
+import { dehydrate } from 'react-query/hydration';
+
+// import { defaultLimit } from 'constants/common';
+import { fetchGetSize, fetchGetArea, fetchGetProduct } from 'utils/api';
 import Layout from 'components/layout';
-import Product from 'components/product';
-import Pagination from 'components/pagination';
+import Result from 'components/result';
 
 function Home() {
   return (
     <Layout title="Home">
-      <h1>Ditemukan harga komoditas ikan: </h1>
-      <div className="row mb-4">
-        <div className="col-sm">
-          <Product />
-        </div>
-        <div className="col-sm">
-          <Product />
-        </div>
-        <div className="col-sm">
-          <Product />
-        </div>
-        <div className="col-sm">
-          <Product />
-        </div>
-      </div>
-      <div className="row mb-4">
-        <div className="col-sm">
-          <Product />
-        </div>
-        <div className="col-sm">
-          <Product />
-        </div>
-        <div className="col-sm">
-          <Product />
-        </div>
-        <div className="col-sm">
-          <Product />
-        </div>
-      </div>
-      <div className="row mb-4">
-        <div className="col-sm">
-          <Product />
-        </div>
-        <div className="col-sm">
-          <Product />
-        </div>
-        <div className="col-sm">
-          <Product />
-        </div>
-        <div className="col-sm">
-          <Product />
-        </div>
-      </div>
-      <div className="row mb-4">
-        <div className="col-sm">
-          <Product />
-        </div>
-        <div className="col-sm">
-          <Product />
-        </div>
-        <div className="col-sm">
-          <Product />
-        </div>
-        <div className="col-sm">
-          <Product />
-        </div>
-      </div>
-      <div className="row mb-4">
-        <div className="col-sm">
-          <Product />
-        </div>
-        <div className="col-sm">
-          <Product />
-        </div>
-        <div className="col-sm">
-          <Product />
-        </div>
-        <div className="col-sm">
-          <Product />
-        </div>
-      </div>
-      <Pagination />
+      <Result />
     </Layout>
   );
+}
+
+export async function getServerSideProps() {
+  const queryClient = new QueryClient();
+  // const params: any = `?limit=${defaultLimit}&offset=0`;
+  const params: any = '';
+  await queryClient.prefetchQuery(['sizes', ''], () => fetchGetSize(''));
+  await queryClient.prefetchQuery(['areas', ''], () => fetchGetArea(''));
+  await queryClient.prefetchQuery(['products', params], () => fetchGetProduct(params));
+
+  return {
+    props: { dehydratedState: dehydrate(queryClient) },
+  };
 }
 
 export default Home;

@@ -1,10 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import SteinStore from 'stein-js-client';
 
-import { sheetArea } from 'constants/common';
+import { baseApiUrlExternal, sheetArea } from 'constants/common';
 
-const { BASE_API_URL_STEIN } = process.env;
-const store: any = new SteinStore(BASE_API_URL_STEIN);
+const store: any = new SteinStore(baseApiUrlExternal);
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const {
@@ -69,15 +68,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       try {
         if (provinceBody && cityBody) {
           const data: any = await store.append(sheetArea, [payload]);
-          res
-            .status(200)
-            .json({
-              message: data?.updatedRange
-                ? 'Successfully added data'
-                : 'No added data',
-              isSuccess: !!data?.updatedRange,
-              data,
-            });
+          res.status(200).json({
+            message: data?.updatedRange
+              ? 'Successfully added data'
+              : 'No added data',
+            isSuccess: !!data?.updatedRange,
+            data,
+          });
         } else if (!provinceBody) {
           res
             .status(400)
@@ -87,12 +84,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             .status(400)
             .json({ message: 'city body is required!', isSuccess: false });
         } else {
-          res
-            .status(400)
-            .json({
-              message: 'province & city body is required!',
-              isSuccess: false,
-            });
+          res.status(400).json({
+            message: 'province & city body is required!',
+            isSuccess: false,
+          });
         }
       } catch (error) {
         res.status(500).json({ message: error, isSuccess: false });
@@ -102,37 +97,31 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     case 'PUT':
       try {
         if (Object.keys(search).length === 0 && search.constructor === Object) {
-          res
-            .status(400)
-            .json({
-              message: 'province or city params is required!',
-              isSuccess: false,
-            });
+          res.status(400).json({
+            message: 'province or city params is required!',
+            isSuccess: false,
+          });
         } else if (
           Object.keys(payload).length === 0
           && payload.constructor === Object
         ) {
-          res
-            .status(400)
-            .json({
-              message: 'province or city body is required!',
-              isSuccess: false,
-            });
+          res.status(400).json({
+            message: 'province or city body is required!',
+            isSuccess: false,
+          });
         } else {
           const data: any = await store.edit(sheetArea, {
             search,
             set: payload,
           });
-          res
-            .status(200)
-            .json({
-              message:
-                data?.totalUpdatedRows > 0
-                  ? 'Successfully updated data'
-                  : 'No updated data',
-              isSuccess: data?.totalUpdatedRows > 0,
-              data,
-            });
+          res.status(200).json({
+            message:
+              data?.totalUpdatedRows > 0
+                ? 'Successfully updated data'
+                : 'No updated data',
+            isSuccess: data?.totalUpdatedRows > 0,
+            data,
+          });
         }
       } catch (error) {
         res.status(500).json({ message: error, isSuccess: false });
@@ -142,37 +131,31 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     case 'PATCH':
       try {
         if (Object.keys(search).length === 0 && search.constructor === Object) {
-          res
-            .status(400)
-            .json({
-              message: 'province or city params is required!',
-              isSuccess: false,
-            });
+          res.status(400).json({
+            message: 'province or city params is required!',
+            isSuccess: false,
+          });
         } else if (
           Object.keys(payload).length === 0
           && payload.constructor === Object
         ) {
-          res
-            .status(400)
-            .json({
-              message: 'province or city body is required!',
-              isSuccess: false,
-            });
+          res.status(400).json({
+            message: 'province or city body is required!',
+            isSuccess: false,
+          });
         } else {
           const data: any = await store.edit(sheetArea, {
             search,
             set: payload,
           });
-          res
-            .status(200)
-            .json({
-              message:
-                data?.totalUpdatedRows > 0
-                  ? 'Successfully updated data'
-                  : 'No updated data',
-              isSuccess: data?.totalUpdatedRows > 0,
-              data,
-            });
+          res.status(200).json({
+            message:
+              data?.totalUpdatedRows > 0
+                ? 'Successfully updated data'
+                : 'No updated data',
+            isSuccess: data?.totalUpdatedRows > 0,
+            data,
+          });
         }
       } catch (error) {
         res.status(500).json({ message: error, isSuccess: false });
@@ -181,25 +164,21 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     case 'DELETE':
       if (Object.keys(search).length === 0 && search.constructor === Object) {
-        res
-          .status(400)
-          .json({
-            message: 'province or city params is required!',
-            isSuccess: false,
-          });
+        res.status(400).json({
+          message: 'province or city params is required!',
+          isSuccess: false,
+        });
       } else {
         try {
           const data: any = await store.delete(sheetArea, { search });
-          res
-            .status(200)
-            .json({
-              message:
-                data?.clearedRowsCount > 0
-                  ? 'Successfully deleted data'
-                  : 'No deleted data',
-              isSuccess: data?.clearedRowsCount > 0,
-              data,
-            });
+          res.status(200).json({
+            message:
+              data?.clearedRowsCount > 0
+                ? 'Successfully deleted data'
+                : 'No deleted data',
+            isSuccess: data?.clearedRowsCount > 0,
+            data,
+          });
         } catch (error) {
           res.status(500).json({ message: error, isSuccess: false });
         }

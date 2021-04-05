@@ -6,11 +6,9 @@ interface BreadcrumbProps {
 
 function Breadcrumb({ title }: BreadcrumbProps): ReactElement {
   return (
-    <nav aria-label="breadcrumb">
+    <nav>
       <ol className="breadcrumb">
-        <li className="breadcrumb-item active" aria-current="page">
-          {title}
-        </li>
+        <li className="breadcrumb-item active">{title}</li>
       </ol>
     </nav>
   );

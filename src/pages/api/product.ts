@@ -2,12 +2,11 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import SteinStore from 'stein-js-client';
 import { v4 as uuidv4 } from 'uuid';
 
-import { sheetProduct } from 'constants/common';
-import { formatStringUcFirst } from 'utils/common';
+import { baseApiUrlExternal, sheetProduct } from 'constants/common';
+import { formatStringUcFirst, removeDuplicateObjectArray } from 'utils/common';
 import { formatDate } from 'utils/date';
 
-const { BASE_API_URL_STEIN } = process.env;
-const store: any = new SteinStore(BASE_API_URL_STEIN);
+const store: any = new SteinStore(baseApiUrlExternal);
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const {
@@ -97,7 +96,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (method) {
     case 'GET':
       try {
-        const data: any = await store.read(sheetProduct, params);
+        const result: any = await store.read(sheetProduct, params);
+        const data: any = removeDuplicateObjectArray(result, 'uuid');
         res.status(200).json({
           message: data?.length > 0 ? 'Successfully retrieved data' : 'No data',
           isSuccess: data?.length > 0,
@@ -114,25 +114,21 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         if (commodityBody) {
           payload = { ...payload, uuid: uuidv4() };
           const data: any = await store.append(sheetProduct, [payload]);
-          res
-            .status(200)
-            .json({
-              message: data?.updatedRange
-                ? 'Successfully added data'
-                : 'No added data',
-              isSuccess: !!data?.updatedRange,
-              data,
-            });
+          res.status(200).json({
+            message: data?.updatedRange
+              ? 'Successfully added data'
+              : 'No added data',
+            isSuccess: !!data?.updatedRange,
+            data,
+          });
         } else if (
           Object.keys(payload).length === 0
           && payload.constructor === Object
         ) {
-          res
-            .status(400)
-            .json({
-              message: 'body (commodity/province/city/size/price) is required!',
-              isSuccess: false,
-            });
+          res.status(400).json({
+            message: 'body (commodity/province/city/size/price) is required!',
+            isSuccess: false,
+          });
         } else {
           res
             .status(400)
@@ -150,26 +146,22 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             search,
             set: payload,
           });
-          res
-            .status(200)
-            .json({
-              message:
-                data?.totalUpdatedRows > 0
-                  ? 'Successfully updated data'
-                  : 'No updated data',
-              isSuccess: data?.totalUpdatedRows > 0,
-              data,
-            });
+          res.status(200).json({
+            message:
+              data?.totalUpdatedRows > 0
+                ? 'Successfully updated data'
+                : 'No updated data',
+            isSuccess: data?.totalUpdatedRows > 0,
+            data,
+          });
         } else if (
           Object.keys(payload).length === 0
           && payload.constructor === Object
         ) {
-          res
-            .status(400)
-            .json({
-              message: 'body (commodity/province/city/size/price) is required!',
-              isSuccess: false,
-            });
+          res.status(400).json({
+            message: 'body (commodity/province/city/size/price) is required!',
+            isSuccess: false,
+          });
         } else {
           res
             .status(400)
@@ -187,26 +179,22 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             search,
             set: payload,
           });
-          res
-            .status(200)
-            .json({
-              message:
-                data?.totalUpdatedRows > 0
-                  ? 'Successfully updated data'
-                  : 'No updated data',
-              isSuccess: data?.totalUpdatedRows > 0,
-              data,
-            });
+          res.status(200).json({
+            message:
+              data?.totalUpdatedRows > 0
+                ? 'Successfully updated data'
+                : 'No updated data',
+            isSuccess: data?.totalUpdatedRows > 0,
+            data,
+          });
         } else if (
           Object.keys(payload).length === 0
           && payload.constructor === Object
         ) {
-          res
-            .status(400)
-            .json({
-              message: 'body (commodity/province/city/size/price) is required!',
-              isSuccess: false,
-            });
+          res.status(400).json({
+            message: 'body (commodity/province/city/size/price) is required!',
+            isSuccess: false,
+          });
         } else {
           res
             .status(400)
@@ -221,16 +209,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       try {
         if (search?.uuid) {
           const data: any = await store.delete(sheetProduct, { search });
-          res
-            .status(200)
-            .json({
-              message:
-                data?.totalUpdatedRows > 0
-                  ? 'Successfully updated data'
-                  : 'No updated data',
-              isSuccess: data?.totalUpdatedRows > 0,
-              data,
-            });
+          res.status(200).json({
+            message:
+              data?.totalUpdatedRows > 0
+                ? 'Successfully updated data'
+                : 'No updated data',
+            isSuccess: data?.totalUpdatedRows > 0,
+            data,
+          });
         } else {
           res
             .status(400)

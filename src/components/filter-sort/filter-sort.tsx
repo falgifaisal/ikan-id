@@ -1,6 +1,11 @@
 import { ReactElement } from 'react';
 
-// import styles from './filter-sort.module.scss';
+import {
+  SelectSorting,
+  SelectProvince,
+  SelectCity,
+  SelectSize,
+} from 'components/select';
 
 function Filter(): ReactElement {
   return (
@@ -12,16 +17,7 @@ function Filter(): ReactElement {
               <h5 className="card-title">Urutkan</h5>
               <hr />
               <div className="d-flex flex-column">
-                <select
-                  className="form-select form-select-sm mb-4"
-                  aria-label="Default select example"
-                >
-                  <option value="1" selected>
-                    Terbaru
-                  </option>
-                  <option value="2">Harga tertinggi</option>
-                  <option value="3">Harga termurah</option>
-                </select>
+                <SelectSorting />
               </div>
             </div>
             <div className="col-sm-8">
@@ -29,37 +25,10 @@ function Filter(): ReactElement {
               <hr />
               <div className="d-flex flex-column">
                 <h5 className="card-title">Lokasi</h5>
-                <select
-                  className="form-select form-select-sm mb-4"
-                  aria-label="Default select example"
-                >
-                  <option value="1" selected>
-                    One
-                  </option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
-                </select>
-                <select
-                  className="form-select form-select-sm mb-4"
-                  aria-label="Default select example"
-                >
-                  <option value="1" selected>
-                    One
-                  </option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
-                </select>
+                <SelectProvince />
+                <SelectCity />
                 <h5 className="card-title">Ukuran</h5>
-                <select
-                  className="form-select form-select-sm mb-4"
-                  aria-label="Default select example"
-                >
-                  <option value="1" selected>
-                    One
-                  </option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
-                </select>
+                <SelectSize />
               </div>
             </div>
           </div>
