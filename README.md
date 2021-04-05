@@ -6,10 +6,10 @@ You can check [demo](https://ikan-id-demo.vercel.app/)
 
 ## Features
 
-- Create product as Admin
+- Create product as Admin -> switch admin mode on right header with icon user check
 - Read (product/area/size)
-- Update product as Admin
-- Delete product as Admin
+- Update product as Admin -> switch admin mode on right header with icon user check
+- Delete product as Admin -> switch admin mode on right header with icon user check
 - Responsive web
 - SEO
 - PWA
