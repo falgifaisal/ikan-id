@@ -17,7 +17,7 @@ function Result(): ReactElement {
     province || ''
   }&city=${city || ''}&size=${size || ''}&sort=${sort || ''}`;
   const {
-    isLoading, isError, error, data,
+    isFetching, isError, error, data,
   } = useQueryProducts(params);
   return (
     <>
@@ -38,11 +38,12 @@ function Result(): ReactElement {
         </div>
       )}
 
-      {isLoading && (
+      {isFetching && (
         <div className="d-flex justify-content-center align-items-center mb-4">
           <div className="spinner-grow hw-10 text-info" role="status" />
         </div>
       )}
+
       {isError && (
         <div className="d-flex justify-content-center align-items-center mb-4">
           <p className="h3 text-danger">
@@ -51,15 +52,18 @@ function Result(): ReactElement {
         </div>
       )}
 
-      {data?.count > 0 && (
+      {!isFetching && data?.count > 0 && (
         <h5>
           Ditemukan harga komoditas ikan:
           {` ${data.data.length} Data`}
         </h5>
       )}
-      {data?.count === 0 && <h5>Data tidak ditemukan</h5>}
+
+      {!isFetching && data?.count === 0 && <h5>Data tidak ditemukan</h5>}
+
       <div className="row mb-4">
-        {data?.count > 0
+        {!isFetching
+          && data?.count > 0
           && data?.data?.map((val: any) => (
             <div
               key={`${val.uuid}-${val.komoditas}-${val.province}-${val.city}`}

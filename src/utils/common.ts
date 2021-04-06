@@ -55,7 +55,6 @@ export function sortArrayObject(
   key: string,
   order = 'asc',
 ): string[] {
-  // return arr.sort((a: any, b: any) => (a[key] > b[key] ? 1 : -1));
   return arr.sort(compareValues(key, order));
 }
 

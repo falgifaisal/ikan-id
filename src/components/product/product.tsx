@@ -218,7 +218,7 @@ function Product(props: ProductProps): ReactElement {
             <h5 className="card-title">{commodity || '-'}</h5>
             <p className="card-text">
               Ukuran:
-              {size || '-'}
+              {` ${size}` || '-'}
             </p>
             <p className="small text-muted">
               <svg
@@ -273,7 +273,13 @@ function Product(props: ProductProps): ReactElement {
             {isAdmin && (
               <>
                 <a
-                  className="btn btn-sm btn-outline-info mr-2"
+                  className={`btn btn-sm btn-outline-info mr-2 ${
+                    mutationPost.isLoading
+                    || mutationUpdate.isLoading
+                    || mutationDelete.isLoading
+                      ? 'disabled'
+                      : ''
+                  }`}
                   title={isEdit ? 'Batal edit data' : 'Edit data'}
                   onClick={handleCancel}
                 >
@@ -302,7 +308,13 @@ function Product(props: ProductProps): ReactElement {
                   )}
                 </a>
                 <a
-                  className="btn btn-sm btn-outline-info"
+                  className={`btn btn-sm btn-outline-info ${
+                    mutationPost.isLoading
+                    || mutationUpdate.isLoading
+                    || mutationDelete.isLoading
+                      ? 'disabled'
+                      : ''
+                  }`}
                   title={isEdit ? 'Simpan data' : 'Delete data'}
                   onClick={
                     !isEdit && !isAdd
