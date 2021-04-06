@@ -1,5 +1,7 @@
 /* eslint-disable react/destructuring-assignment */
-import { ReactElement, useState, useRef } from 'react';
+import {
+  ReactElement, useState, useRef, useEffect,
+} from 'react';
 
 import { defaultCurrency } from 'constants/common';
 import { formatStringUcFirst, formatNumber } from 'utils/common';
@@ -49,6 +51,12 @@ function Product(props: ProductProps): ReactElement {
   const mutationDelete = useDeleteProducts(params);
   const commodityRef = useRef<any>(null);
 
+  useEffect(() => {
+    if (isEdit && commodityRef?.current) {
+      commodityRef.current.focus();
+    }
+  }, [isEdit]);
+
   function handleCancel() {
     setPayloads({
       commodity: komoditas,
@@ -62,7 +70,7 @@ function Product(props: ProductProps): ReactElement {
       setIsEdit(!isEdit);
     }
 
-    if ((isAdd || isEdit) && commodityRef?.current) {
+    if (isAdd && commodityRef?.current) {
       commodityRef.current.focus();
     }
   }
