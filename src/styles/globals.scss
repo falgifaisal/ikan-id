@@ -12,7 +12,7 @@ $pagination-color: var(--info);
 $pagination-hover-color: var(--info);
 $pagination-active-bg: var(--info);
 
-@for $i from 0 to 20 {
+@for $i from 1 to 20 {
   .hw-#{$i} {
     height: $i + rem !important;
     width: $i + rem !important;

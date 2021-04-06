@@ -9,7 +9,7 @@ function Header(): ReactElement {
   const { isAdmin } = globalState;
   return (
     <header>
-      <nav className="navbar navbar-expand navbar-light sticky-top bg-light border-bottom border-dark">
+      <nav className="navbar navbar-expand navbar-light fixed-top bg-light border-bottom border-dark">
         <div className="container">
           <a
             href="/"

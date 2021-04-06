@@ -4,7 +4,7 @@ import styles from './footer.module.scss';
 
 function Footer(): ReactElement {
   return (
-    <footer className={`${styles.footer} bg-light`}>
+    <footer className={`${styles.footer} fixed-bottom bg-light`}>
       <div className="container">
         <div className="pt-3 d-flex justify-content-center align-items-center">
           <div className="btn-group">

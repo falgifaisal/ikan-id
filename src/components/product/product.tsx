@@ -218,7 +218,7 @@ function Product(props: ProductProps): ReactElement {
             <h5 className="card-title">{commodity || '-'}</h5>
             <p className="card-text">
               Ukuran:
-              {` ${size}` || '-'}
+              {` ${Number(size)}` || '-'}
             </p>
             <p className="small text-muted">
               <svg
@@ -266,7 +266,7 @@ function Product(props: ProductProps): ReactElement {
             />
           ) : (
             <p className="card-text">
-              {`${currency} ${formatNumber(price || 0)}`}
+              {`${currency} ${formatNumber(Number(price) || 0)}`}
             </p>
           )}
           <div className="d-flex">

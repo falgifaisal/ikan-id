@@ -1,7 +1,7 @@
 {
   "theme_color": "#4d96d7",
   "background_color": "#f8f9fa",
-  "display": "fullscreen",
+  "display": "standalone",
   "scope": "/",
   "start_url": "/",
   "name": "Ikan-ID",
