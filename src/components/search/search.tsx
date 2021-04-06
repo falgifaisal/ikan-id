@@ -1,4 +1,4 @@
-import { ReactElement, useState, createRef } from 'react';
+import { ReactElement, useState, useRef } from 'react';
 
 import { useAppContext } from 'context/app-context';
 
@@ -6,7 +6,7 @@ function Search(): ReactElement {
   const { globalState, setState } = useAppContext();
   const { commodity } = globalState;
   const [search, setSearch] = useState(commodity || '');
-  const inputRef: any = createRef();
+  const searchRef = useRef<any>(null);
 
   function handleChange(e: any) {
     setSearch(e.target.value);
@@ -26,8 +26,8 @@ function Search(): ReactElement {
     setState({ commodity: '' });
     setSearch('');
 
-    if (inputRef) {
-      inputRef.current.focus();
+    if (searchRef?.current) {
+      searchRef.current.focus();
     }
   }
 
@@ -40,9 +40,10 @@ function Search(): ReactElement {
           <div className="d-flex">
             <div className="input-group">
               <input
-                ref={inputRef}
+                ref={searchRef}
                 type="text"
                 className="form-control"
+                name="search"
                 placeholder="Cari komoditas ikan"
                 value={search}
                 onChange={handleChange}

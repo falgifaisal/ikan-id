@@ -14,7 +14,7 @@ function SelectCity(): ReactElement {
     <>
       <select
         className="form-select form-select-sm mb-4"
-        defaultValue=""
+        name="selectCity"
         value={city || ''}
         onChange={(e) => setState({ city: e.target.value })}
       >

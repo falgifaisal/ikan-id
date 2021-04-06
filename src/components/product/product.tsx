@@ -1,5 +1,5 @@
 /* eslint-disable react/destructuring-assignment */
-import { ReactElement, useState, createRef } from 'react';
+import { ReactElement, useState, useRef } from 'react';
 
 import { defaultCurrency } from 'constants/common';
 import { formatStringUcFirst, formatNumber } from 'utils/common';
@@ -47,7 +47,7 @@ function Product(props: ProductProps): ReactElement {
   const mutationPost = usePostProducts(payloads);
   const mutationUpdate = useUpdateProducts(paramsPayloads);
   const mutationDelete = useDeleteProducts(params);
-  const inputRef: any = createRef();
+  const commodityRef = useRef<any>(null);
 
   function handleCancel() {
     setPayloads({
@@ -62,8 +62,8 @@ function Product(props: ProductProps): ReactElement {
       setIsEdit(!isEdit);
     }
 
-    if (isAdd && inputRef) {
-      inputRef.current.focus();
+    if ((isAdd || isEdit) && commodityRef?.current) {
+      commodityRef.current.focus();
     }
   }
 
@@ -75,6 +75,10 @@ function Product(props: ProductProps): ReactElement {
             error || 'terjadi kesalahan sistem!'
           }`,
         );
+
+        if (commodityRef?.current) {
+          commodityRef.current.focus();
+        }
       },
       onSuccess: (data: any) => {
         if (data?.isSuccess) {
@@ -94,6 +98,10 @@ function Product(props: ProductProps): ReactElement {
             }`,
           );
         }
+
+        if (commodityRef?.current) {
+          commodityRef.current.focus();
+        }
       },
     });
   }
@@ -106,6 +114,10 @@ function Product(props: ProductProps): ReactElement {
             error || 'terjadi kesalahan sistem!'
           }`,
         );
+
+        if (commodityRef?.current) {
+          commodityRef.current.focus();
+        }
       },
       onSuccess: (data: any) => {
         if (data?.isSuccess) {
@@ -118,6 +130,10 @@ function Product(props: ProductProps): ReactElement {
               data?.message || 'terjadi kesalahan sistem!'
             }`,
           );
+        }
+
+        if (commodityRef?.current) {
+          commodityRef.current.focus();
         }
       },
     });
@@ -150,23 +166,25 @@ function Product(props: ProductProps): ReactElement {
   return (
     <div className="card border border-info">
       <div className="card-body">
-        {isEdit || isAdd ? (
+        {isAdmin && (isAdd || isEdit) ? (
           <>
             <input
-              ref={inputRef}
+              ref={commodityRef}
+              name="commodity"
               className={`form-control form-control-sm mb-2 ${
                 payloads.commodity ? 'is-valid' : 'is-invalid'
               }`}
               placeholder="Isi komoditas"
-              value={payloads.commodity}
+              value={payloads.commodity || ''}
               onChange={(e) => setPayloads({ ...payloads, commodity: e.target.value })}
             />
             <input
               className={`form-control form-control-sm mb-2 ${
                 payloads.size ? 'is-valid' : 'is-invalid'
               }`}
+              name="size"
               placeholder="Isi ukuran"
-              value={payloads.size}
+              value={payloads.size || ''}
               onChange={(e) => setPayloads({ ...payloads, size: e.target.value })}
             />
             <input
@@ -174,15 +192,16 @@ function Product(props: ProductProps): ReactElement {
                 payloads.province ? 'is-valid' : 'is-invalid'
               }`}
               placeholder="Isi provinsi"
-              value={payloads.province}
+              value={payloads.province || ''}
               onChange={(e) => setPayloads({ ...payloads, province: e.target.value })}
             />
             <input
               className={`form-control form-control-sm ${
                 payloads.city ? 'is-valid' : 'is-invalid'
               }`}
+              name="city"
               placeholder="Isi kota"
-              value={payloads.city}
+              value={payloads.city || ''}
               onChange={(e) => setPayloads({ ...payloads, city: e.target.value })}
             />
           </>
@@ -227,13 +246,14 @@ function Product(props: ProductProps): ReactElement {
       </div>
       <div className="card-footer">
         <div className="d-flex flex-column">
-          {isEdit || isAdd ? (
+          {isAdmin && (isAdd || isEdit) ? (
             <input
               className={`form-control form-control-sm mb-2 ${
                 payloads.price ? 'is-valid' : 'is-invalid'
               }`}
+              name="price"
               placeholder="Isi harga"
-              value={payloads.price}
+              value={payloads.price || ''}
               onChange={(e) => setPayloads({ ...payloads, price: e.target.value })}
             />
           ) : (

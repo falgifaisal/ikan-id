@@ -13,7 +13,7 @@ function SelectProvince(): ReactElement {
     <>
       <select
         className="form-select form-select-sm mb-4"
-        defaultValue=""
+        name="selectSize"
         value={size || ''}
         onChange={(e) => setState({ size: e.target.value })}
       >

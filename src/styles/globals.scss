@@ -19,4 +19,8 @@ $pagination-active-bg: var(--info);
   }
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 @import '~bootstrap/scss/bootstrap';

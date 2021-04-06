@@ -21,19 +21,6 @@ function Result(): ReactElement {
   } = useQueryProducts(params);
   return (
     <>
-      {isLoading && (
-        <div className="d-flex justify-content-center align-items-center mb-4">
-          <div className="spinner-grow hw-10 text-info" role="status" />
-        </div>
-      )}
-      {isError && (
-        <div className="d-flex justify-content-center align-items-center mb-4">
-          <p className="h3 text-danger">
-            {error?.message || 'Something problem!'}
-          </p>
-        </div>
-      )}
-
       {isAdmin && (
         <div className="mb-4">
           <h5>Tambah data</h5>
@@ -48,6 +35,19 @@ function Result(): ReactElement {
             price=""
             timestamp=""
           />
+        </div>
+      )}
+
+      {isLoading && (
+        <div className="d-flex justify-content-center align-items-center mb-4">
+          <div className="spinner-grow hw-10 text-info" role="status" />
+        </div>
+      )}
+      {isError && (
+        <div className="d-flex justify-content-center align-items-center mb-4">
+          <p className="h3 text-danger">
+            {error?.message || 'Something problem!'}
+          </p>
         </div>
       )}
 

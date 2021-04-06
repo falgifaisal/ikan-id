@@ -29,9 +29,8 @@ function Header(): ReactElement {
             <ul className="navbar-nav mr-auto">
               <li className={`nav-item ${isAdmin ? 'active' : ''}`}>
                 <a
-                  className={`nav-link ${isAdmin ? 'text-info' : ''}`}
-                  href="/#"
-                  title={`Ubah sebagai user ${isAdmin ? 'Admin' : 'Biasa'}`}
+                  className={`nav-link pointer ${isAdmin ? 'text-info' : ''}`}
+                  title={`Ubah sebagai user ${isAdmin ? 'Biasa' : 'Admin'}`}
                   onClick={() => setState({ isAdmin: !isAdmin })}
                 >
                   <svg

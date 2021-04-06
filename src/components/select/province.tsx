@@ -14,7 +14,7 @@ function SelectProvince(): ReactElement {
     <>
       <select
         className="form-select form-select-sm mb-4"
-        defaultValue=""
+        name="selectProvince"
         value={province || ''}
         onChange={(e) => setState({ province: e.target.value })}
       >

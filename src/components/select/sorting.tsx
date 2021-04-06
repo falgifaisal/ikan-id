@@ -9,7 +9,7 @@ function SelectSorting(): ReactElement {
     <>
       <select
         className="form-select form-select-sm mb-4"
-        defaultValue=""
+        name="selectSorting"
         value={sort || ''}
         onChange={(e) => setState({ sort: e.target.value })}
       >
