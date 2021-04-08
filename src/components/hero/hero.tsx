@@ -1,11 +1,20 @@
-import { ReactElement } from 'react';
+import { ReactElement, memo } from 'react';
 
-import styles from './hero.module.scss';
+import { useAppContext } from 'context/app-context';
 
 function Hero(): ReactElement {
+  const { globalState } = useAppContext();
+  const { theme } = globalState;
+
   return (
     <>
-      <div className={`${styles.customCard} card mb-5`}>
+      <div
+        className={`card mb-5 border-info-10 ${
+          theme === 'dark'
+            ? 'bg-dark text-light box-shadow-light-3'
+            : 'bg-light text-dark box-shadow-dark-3'
+        }`}
+      >
         <div className="card-body">
           <h2 className="card-title">Harga Ikan Indonesia</h2>
           <p className="card-text">
@@ -31,4 +40,4 @@ function Hero(): ReactElement {
   );
 }
 
-export default Hero;
+export default memo(Hero);

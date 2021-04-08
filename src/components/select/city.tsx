@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement, memo } from 'react';
 
 import { useAppContext } from 'context/app-context';
 import { sortArrayObject, removeDuplicateObjectArray } from 'utils/common';
@@ -6,7 +6,7 @@ import { useQueryAreas } from 'utils/hooks';
 
 function SelectCity(): ReactElement {
   const {
-    isLoading, isError, error, data,
+    isFetching, isLoading, isError, error, data,
   } = useQueryAreas('');
   const { globalState, setState } = useAppContext();
   const { city } = globalState;
@@ -18,35 +18,36 @@ function SelectCity(): ReactElement {
         value={city || ''}
         onChange={(e) => setState({ city: e.target.value })}
       >
-        {isLoading && (
-          <option value="loading" disabled selected>
+        {isLoading ? (
+          <option value="" disabled>
             Loading...
           </option>
-        )}
-        {isError && (
-          <option value="error" disabled selected>
+        ) : isError ? (
+          <option value="" disabled>
             {error?.message}
           </option>
-        )}
-        {data?.count > 0 ? (
-          <option value="">Pilih Kota</option>
         ) : (
-          <option value="" disabled selected>
-            Data tidak ditemukan
-          </option>
-        )}
-        {data?.data?.length
-          && removeDuplicateObjectArray(
-            sortArrayObject(data?.data, 'city'),
-            'city',
-          )?.map((val: any) => (
-            <option key={val.city} value={val.city}>
-              {val.city}
+          <>
+            <option value="" disabled={!!isFetching}>
+              {isFetching
+                ? 'Refreshing...'
+                : data?.count > 0
+                  ? 'Pilih Kota'
+                  : 'Data tidak ditemukan'}
             </option>
-          ))}
+            {removeDuplicateObjectArray(
+              sortArrayObject(data?.data, 'city'),
+              'city',
+            )?.map((val: any) => (
+              <option key={val.city} value={val.city}>
+                {val.city}
+              </option>
+            ))}
+          </>
+        )}
       </select>
     </>
   );
 }
 
-export default SelectCity;
+export default memo(SelectCity);

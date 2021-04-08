@@ -1,13 +1,14 @@
 /* eslint-disable react/destructuring-assignment */
 import {
-  ReactElement, useState, useRef, useEffect,
+  ReactElement, useState, useRef, useEffect, memo,
 } from 'react';
+import { useQueryClient } from 'react-query';
+import { isEqual } from 'lodash';
 
 import { defaultCurrency } from 'constants/common';
 import { formatStringUcFirst, formatNumber } from 'utils/common';
 import { formatDate } from 'utils/date';
 import {
-  queryClient,
   usePostProducts,
   useUpdateProducts,
   useDeleteProducts,
@@ -21,12 +22,20 @@ interface ProductProps {
   size: string;
   price: string;
   timestamp: string;
+  theme: string;
   [key: string]: any;
 }
 
 function Product(props: ProductProps): ReactElement {
   const {
-    isAdmin, isAdd, uuid, komoditas, size, price, timestamp,
+    isAdmin,
+    isAdd,
+    uuid,
+    komoditas,
+    size,
+    price,
+    timestamp,
+    theme,
   } = props;
   const commodity: string = komoditas;
   // eslint-disable-next-line react/destructuring-assignment
@@ -50,6 +59,7 @@ function Product(props: ProductProps): ReactElement {
   const mutationUpdate = useUpdateProducts(paramsPayloads);
   const mutationDelete = useDeleteProducts(params);
   const commodityRef = useRef<any>(null);
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     if (isEdit && commodityRef?.current) {
@@ -90,8 +100,8 @@ function Product(props: ProductProps): ReactElement {
       },
       onSuccess: (data: any) => {
         if (data?.isSuccess) {
+          alert('Berhasil menyimpan data');
           queryClient.getQueryState('products');
-          alert('Sukses menyimpan data');
           setPayloads({
             commodity: komoditas,
             size,
@@ -129,8 +139,8 @@ function Product(props: ProductProps): ReactElement {
       },
       onSuccess: (data: any) => {
         if (data?.isSuccess) {
+          alert('Berhasil memperbarui data');
           queryClient.getQueryState('products');
-          alert('Sukses memperbarui data');
           setIsEdit(false);
         } else {
           alert(
@@ -158,8 +168,8 @@ function Product(props: ProductProps): ReactElement {
       },
       onSuccess: (data: any) => {
         if (data?.isSuccess) {
+          alert('Berhasil menghapus data');
           queryClient.getQueryState('products');
-          alert('Sukses menghapus data');
         } else {
           alert(
             `Gagal menghapus data. error: ${
@@ -172,7 +182,11 @@ function Product(props: ProductProps): ReactElement {
   }
 
   return (
-    <div className="card border border-info">
+    <div
+      className={`card border border-info ${
+        theme === 'dark' ? 'bg-dark text-light' : 'bg-light text-dark'
+      }`}
+    >
       <div className="card-body">
         {isAdmin && (isAdd || isEdit) ? (
           <>
@@ -180,7 +194,13 @@ function Product(props: ProductProps): ReactElement {
               ref={commodityRef}
               name="commodity"
               className={`form-control form-control-sm mb-2 ${
-                payloads.commodity ? 'is-valid' : 'is-invalid'
+                mutationPost.isLoading
+                || mutationUpdate.isLoading
+                || mutationDelete.isLoading
+                  ? 'readonly'
+                  : payloads.commodity
+                    ? 'is-valid'
+                    : 'is-invalid'
               }`}
               placeholder="Isi komoditas"
               value={payloads.commodity || ''}
@@ -188,7 +208,13 @@ function Product(props: ProductProps): ReactElement {
             />
             <input
               className={`form-control form-control-sm mb-2 ${
-                payloads.size ? 'is-valid' : 'is-invalid'
+                mutationPost.isLoading
+                || mutationUpdate.isLoading
+                || mutationDelete.isLoading
+                  ? 'readonly'
+                  : payloads.size
+                    ? 'is-valid'
+                    : 'is-invalid'
               }`}
               name="size"
               placeholder="Isi ukuran"
@@ -197,7 +223,13 @@ function Product(props: ProductProps): ReactElement {
             />
             <input
               className={`form-control form-control-sm mb-2 ${
-                payloads.province ? 'is-valid' : 'is-invalid'
+                mutationPost.isLoading
+                || mutationUpdate.isLoading
+                || mutationDelete.isLoading
+                  ? 'readonly'
+                  : payloads.province
+                    ? 'is-valid'
+                    : 'is-invalid'
               }`}
               placeholder="Isi provinsi"
               value={payloads.province || ''}
@@ -205,7 +237,13 @@ function Product(props: ProductProps): ReactElement {
             />
             <input
               className={`form-control form-control-sm ${
-                payloads.city ? 'is-valid' : 'is-invalid'
+                mutationPost.isLoading
+                || mutationUpdate.isLoading
+                || mutationDelete.isLoading
+                  ? 'readonly'
+                  : payloads.city
+                    ? 'is-valid'
+                    : 'is-invalid'
               }`}
               name="city"
               placeholder="Isi kota"
@@ -257,7 +295,13 @@ function Product(props: ProductProps): ReactElement {
           {isAdmin && (isAdd || isEdit) ? (
             <input
               className={`form-control form-control-sm mb-2 ${
-                payloads.price ? 'is-valid' : 'is-invalid'
+                mutationPost.isLoading
+                || mutationUpdate.isLoading
+                || mutationDelete.isLoading
+                  ? 'readonly'
+                  : payloads.price
+                    ? 'is-valid'
+                    : 'is-invalid'
               }`}
               name="price"
               placeholder="Isi harga"
@@ -370,4 +414,4 @@ function Product(props: ProductProps): ReactElement {
   );
 }
 
-export default Product;
+export default memo(Product, isEqual);

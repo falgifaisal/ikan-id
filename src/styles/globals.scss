@@ -14,8 +14,36 @@ $pagination-active-bg: var(--info);
 
 @for $i from 1 to 20 {
   .hw-#{$i} {
-    height: $i + rem !important;
-    width: $i + rem !important;
+    height: #{$i}rem !important;
+    width: #{$i}rem !important;
+  }
+
+  .border-info-#{$i} {
+    border: #{$i}px solid var(--info) !important;
+  }
+
+  .box-shadow-dark-#{$i} {
+    box-shadow: #{$i}px #{$i}px #{$i}px #{$i}px var(--dark);
+  }
+
+  .box-shadow-light-#{$i} {
+    box-shadow: #{$i}px #{$i}px #{$i}px #{$i}px var(--light);
+  }
+
+  .border-top-dark-#{$i} {
+    border-top: #{$i}px solid var(--dark);
+  }
+
+  .border-top-light-#{$i} {
+    border-top: #{$i}px solid var(--light);
+  }
+
+  .border-bottom-dark-#{$i} {
+    border-bottom: #{$i}px solid var(--dark);
+  }
+
+  .border-bottom-light-#{$i} {
+    border-bottom: #{$i}px solid var(--light);
   }
 }
 

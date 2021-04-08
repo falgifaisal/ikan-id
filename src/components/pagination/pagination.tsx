@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement, memo } from 'react';
 
 import { useAppContext } from 'context/app-context';
 import { createArrayNumber } from 'utils/common';
@@ -44,4 +44,4 @@ function Pagination(): ReactElement {
   );
 }
 
-export default Pagination;
+export default memo(Pagination);

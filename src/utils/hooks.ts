@@ -1,4 +1,4 @@
-import { QueryClient, useQuery, useMutation } from 'react-query';
+import { useQuery, useMutation } from 'react-query';
 
 import {
   fetchGetSize,
@@ -8,8 +8,6 @@ import {
   fetchPatchProduct,
   fetchDeleteProduct,
 } from './api';
-
-export const queryClient = new QueryClient();
 
 export function useQuerySizes(params?: any) {
   return useQuery<any, any>(['sizes', params], () => fetchGetSize(params));

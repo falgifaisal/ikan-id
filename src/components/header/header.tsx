@@ -1,4 +1,6 @@
-import { ReactElement } from 'react';
+import {
+  ReactElement, useEffect, useLayoutEffect, memo,
+} from 'react';
 import Image from 'next/image';
 
 import { useAppContext } from 'context/app-context';
@@ -6,10 +8,26 @@ import styles from './header.module.scss';
 
 function Header(): ReactElement {
   const { globalState, setState } = useAppContext();
-  const { isAdmin } = globalState;
+  const { isAdmin, theme } = globalState;
+  const Effect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
+
+  Effect(() => {
+    if (!localStorage?.theme) {
+      localStorage.theme = 'light';
+    }
+
+    setState({ theme: localStorage.theme });
+  }, []);
+
   return (
     <header>
-      <nav className="navbar navbar-expand navbar-light fixed-top bg-light border-bottom border-dark">
+      <nav
+        className={`navbar navbar-expand ${
+          theme === 'dark'
+            ? 'navbar-dark fixed-top bg-dark border-bottom-light-1 text-light'
+            : 'navbar-light fixed-top bg-light border-bottom-dark-1 text-dark'
+        }`}
+      >
         <div className="container">
           <a
             href="/"
@@ -19,12 +37,12 @@ function Header(): ReactElement {
             <Image
               alt="Brand logo"
               src="/fish.png"
-              width="50"
-              height="32"
+              width={50}
+              height={32}
               priority
             />
           </a>
-          <h1 className="text-info mb-0">Ikan-ID</h1>
+          <h2 className="text-info mb-0">Ikan-ID</h2>
           <div>
             <ul className="navbar-nav mr-auto">
               <li className={`nav-item ${isAdmin ? 'active' : ''}`}>
@@ -49,9 +67,45 @@ function Header(): ReactElement {
                   </svg>
                   {' '}
                   {isAdmin ? (
-                    <span className="text-info small">Admin</span>
+                    <span className="text-info small">(Admin)</span>
                   ) : (
                     ''
+                  )}
+                </a>
+              </li>
+              <li className="nav-item">
+                <a
+                  className={`nav-link pointer ${
+                    theme === 'dark' ? 'text-light' : 'text-dark'
+                  }`}
+                  title={`Ubah tema ${theme === 'dark' ? 'light' : 'dark'}`}
+                  onClick={() => {
+                    setState({ theme: theme === 'dark' ? 'light' : 'dark' });
+                    localStorage.theme = theme === 'dark' ? 'light' : 'dark';
+                  }}
+                >
+                  {theme === 'dark' ? (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      className="bi bi-brightness-high"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z" />
+                    </svg>
+                  ) : (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      className="bi bi-brightness-high-fill"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M12 8a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z" />
+                    </svg>
                   )}
                 </a>
               </li>
@@ -83,4 +137,4 @@ function Header(): ReactElement {
   );
 }
 
-export default Header;
+export default memo(Header);

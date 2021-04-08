@@ -1,15 +1,26 @@
-import { ReactElement } from 'react';
+import { ReactElement, memo } from 'react';
 
-import styles from './footer.module.scss';
+import { useAppContext } from 'context/app-context';
 
 function Footer(): ReactElement {
+  const { globalState } = useAppContext();
+  const { theme } = globalState;
+
   return (
-    <footer className={`${styles.footer} fixed-bottom bg-light`}>
+    <footer
+      className={`fixed-bottom ${
+        theme === 'dark'
+          ? 'bg-dark border-top-light-5 text-light'
+          : 'bg-light border-top-dark-5 text-dark'
+      }`}
+    >
       <div className="container">
         <div className="pt-3 d-flex justify-content-center align-items-center">
-          <div className="btn-group">
+          <div className="d-flex">
             <a
-              className="btn btn-light"
+              className={`p-2 pointer ${
+                theme === 'dark' ? 'text-light' : 'text-dark'
+              }`}
               href="https://www.facebook.com/danangekal/"
               target="_blank"
               title="facebook"
@@ -27,7 +38,9 @@ function Footer(): ReactElement {
               </svg>
             </a>
             <a
-              className="btn btn-light"
+              className={`p-2 pointer ${
+                theme === 'dark' ? 'text-light' : 'text-dark'
+              }`}
               href="https://twitter.com/danangekal"
               target="_blank"
               title="twitter"
@@ -45,7 +58,9 @@ function Footer(): ReactElement {
               </svg>
             </a>
             <a
-              className="btn btn-light"
+              className={`p-2 pointer ${
+                theme === 'dark' ? 'text-light' : 'text-dark'
+              }`}
               href="https://www.linkedin.com/in/danangekal/"
               target="_blank"
               title="linkedin"
@@ -63,7 +78,9 @@ function Footer(): ReactElement {
               </svg>
             </a>
             <a
-              className="btn btn-light"
+              className={`p-2 pointer ${
+                theme === 'dark' ? 'text-light' : 'text-dark'
+              }`}
               href="https://github.com/danangekal"
               target="_blank"
               title="github"
@@ -111,4 +128,4 @@ function Footer(): ReactElement {
   );
 }
 
-export default Footer;
+export default memo(Footer);

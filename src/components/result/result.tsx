@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement, memo } from 'react';
 
 import { useAppContext } from 'context/app-context';
 // import { defaultLimit } from 'constants/common';
@@ -9,7 +9,7 @@ import { useQueryProducts } from 'utils/hooks';
 function Result(): ReactElement {
   const { globalState } = useAppContext();
   const {
-    commodity, province, city, size, sort, isAdmin,
+    commodity, province, city, size, sort, isAdmin, theme,
   } = globalState;
   // const paging: number = page || 1;
   // const offset: number = page ? ((paging * defaultLimit) - defaultLimit) : 0;
@@ -17,15 +17,21 @@ function Result(): ReactElement {
     province || ''
   }&city=${city || ''}&size=${size || ''}&sort=${sort || ''}`;
   const {
-    isFetching, isError, error, data,
-  } = useQueryProducts(params);
+    isFetching, isLoading, isError, error, data,
+  } = useQueryProducts(
+    params,
+  );
+
   return (
     <>
       {isAdmin && (
         <div className="mb-4">
-          <h5>Tambah data</h5>
+          <h5 className={`${theme === 'dark' ? 'text-light' : 'text-dark'}`}>
+            Tambah data
+          </h5>
           <Product
             isAdmin={!!isAdmin}
+            theme={theme}
             isAdd
             uuid=""
             komoditas=""
@@ -38,44 +44,53 @@ function Result(): ReactElement {
         </div>
       )}
 
-      {isFetching && (
+      {isLoading ? (
         <div className="d-flex justify-content-center align-items-center mb-4">
-          <div className="spinner-grow hw-10 text-info" role="status" />
+          <div className="spinner-grow hw-5 text-info" role="status" />
         </div>
-      )}
-
-      {isError && (
+      ) : isError ? (
         <div className="d-flex justify-content-center align-items-center mb-4">
           <p className="h3 text-danger">
             {error?.message || 'Something problem!'}
           </p>
         </div>
-      )}
-
-      {!isFetching && data?.count > 0 && (
-        <h5>
-          Ditemukan harga komoditas ikan:
-          {` ${data.data.length} Data`}
-        </h5>
-      )}
-
-      {!isFetching && data?.count === 0 && <h5>Data tidak ditemukan</h5>}
-
-      <div className="row mb-4">
-        {!isFetching
-          && data?.count > 0
-          && data?.data?.map((val: any) => (
-            <div
-              key={`${val.uuid}-${val.komoditas}-${val.province}-${val.city}`}
-              className="col-sm-3 my-4"
-            >
-              <Product isAdmin={!!isAdmin} isAdd={false} {...val} />
+      ) : (
+        <>
+          {isFetching ? (
+            <div className="d-flex justify-content-center align-items-center mb-4">
+              <div className="spinner-grow hw-5 text-info" role="status" />
             </div>
-          ))}
-      </div>
+          ) : (
+            <>
+              <h5
+                className={`${theme === 'dark' ? 'text-light' : 'text-dark'}`}
+              >
+                {data?.count > 0
+                  ? `Ditemukan hasil pencarian ikan: ${data.data.length} Data`
+                  : 'Data tidak ditemukan'}
+              </h5>
+              <div className="row mb-4">
+                {data?.data?.map((val: any) => (
+                  <div
+                    key={`${val.uuid}-${val.komoditas}-${val.province}-${val.city}`}
+                    className="col-sm-3 my-4"
+                  >
+                    <Product
+                      isAdmin={!!isAdmin}
+                      theme={theme}
+                      isAdd={false}
+                      {...val}
+                    />
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+        </>
+      )}
       {/* <Pagination /> */}
     </>
   );
 }
 
-export default Result;
+export default memo(Result);

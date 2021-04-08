@@ -1,5 +1,6 @@
-import { ReactElement } from 'react';
+import { ReactElement, memo } from 'react';
 
+import { useAppContext } from 'context/app-context';
 import {
   SelectSorting,
   SelectProvince,
@@ -8,9 +9,18 @@ import {
 } from 'components/select';
 
 function Filter(): ReactElement {
+  const { globalState } = useAppContext();
+  const { theme } = globalState;
+
   return (
     <>
-      <div className="card mb-5 shadow">
+      <div
+        className={`card mb-5 ${
+          theme === 'dark'
+            ? 'bg-dark text-light box-shadow-light-1'
+            : 'bg-light text-dark box-shadow-dark-1'
+        }`}
+      >
         <div className="card-body">
           <div className="row">
             <div className="col-sm-4">
@@ -38,4 +48,4 @@ function Filter(): ReactElement {
   );
 }
 
-export default Filter;
+export default memo(Filter);

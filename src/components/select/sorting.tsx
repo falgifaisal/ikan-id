@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement, memo } from 'react';
 
 import { useAppContext } from 'context/app-context';
 
@@ -22,4 +22,4 @@ function SelectSorting(): ReactElement {
   );
 }
 
-export default SelectSorting;
+export default memo(SelectSorting);
