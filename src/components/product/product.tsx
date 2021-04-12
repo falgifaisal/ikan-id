@@ -101,7 +101,7 @@ function Product(props: ProductProps): ReactElement {
       onSuccess: (data: any) => {
         if (data?.isSuccess) {
           alert('Berhasil menyimpan data');
-          queryClient.getQueryState('products');
+          queryClient.invalidateQueries('products');
           setPayloads({
             commodity: komoditas,
             size,
@@ -140,7 +140,7 @@ function Product(props: ProductProps): ReactElement {
       onSuccess: (data: any) => {
         if (data?.isSuccess) {
           alert('Berhasil memperbarui data');
-          queryClient.getQueryState('products');
+          queryClient.invalidateQueries('products');
           setIsEdit(false);
         } else {
           alert(
@@ -169,7 +169,7 @@ function Product(props: ProductProps): ReactElement {
       onSuccess: (data: any) => {
         if (data?.isSuccess) {
           alert('Berhasil menghapus data');
-          queryClient.getQueryState('products');
+          queryClient.invalidateQueries('products');
         } else {
           alert(
             `Gagal menghapus data. error: ${

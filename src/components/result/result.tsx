@@ -25,7 +25,7 @@ function Result(): ReactElement {
   return (
     <>
       {isAdmin && (
-        <div className="mb-4">
+        <div className="py-4">
           <h5 className={`${theme === 'dark' ? 'text-light' : 'text-dark'}`}>
             Tambah data
           </h5>
@@ -45,11 +45,11 @@ function Result(): ReactElement {
       )}
 
       {isLoading ? (
-        <div className="d-flex justify-content-center align-items-center mb-4">
+        <div className="d-flex justify-content-center align-items-center py-4">
           <div className="spinner-grow hw-5 text-info" role="status" />
         </div>
       ) : isError ? (
-        <div className="d-flex justify-content-center align-items-center mb-4">
+        <div className="d-flex justify-content-center align-items-center py-4">
           <p className="h3 text-danger">
             {error?.message || 'Something problem!'}
           </p>
@@ -57,11 +57,11 @@ function Result(): ReactElement {
       ) : (
         <>
           {isFetching ? (
-            <div className="d-flex justify-content-center align-items-center mb-4">
+            <div className="d-flex justify-content-center align-items-center py-4">
               <div className="spinner-grow hw-5 text-info" role="status" />
             </div>
           ) : (
-            <>
+            <div className="py-4">
               <h5
                 className={`${theme === 'dark' ? 'text-light' : 'text-dark'}`}
               >
@@ -69,7 +69,7 @@ function Result(): ReactElement {
                   ? `Ditemukan hasil pencarian ikan: ${data.data.length} Data`
                   : 'Data tidak ditemukan'}
               </h5>
-              <div className="row mb-4">
+              <div className="row">
                 {data?.data?.map((val: any) => (
                   <div
                     key={`${val.uuid}-${val.komoditas}-${val.province}-${val.city}`}
@@ -84,7 +84,7 @@ function Result(): ReactElement {
                   </div>
                 ))}
               </div>
-            </>
+            </div>
           )}
         </>
       )}

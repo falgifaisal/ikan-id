@@ -23,17 +23,19 @@ You can check [demo](https://ikan-id-demo.vercel.app/)
 - [React.js 17](https://reactjs.org/blog/2020/10/20/react-v17.html) - Blog introduce react v17.0.
 - [Next.js 10](https://nextjs.org/blog/next-10) - Blog introduce next.js 10.
 - [Sass](https://sass-lang.com/guide) - Documentaion of sass for manage css.
-- [Bootsrap 4](https://getbootstrap.com/docs/4.6/getting-started/introduction/) - Documentaion of bootstrap 4 for css framework.
+- [Bootsrap 4](https://getbootstrap.com/docs/4.6/getting-started/introduction/) - Documentaion of bootstrap 4.
 - [Typescript 4](https://www.typescriptlang.org/) - Documentation of typescript.
-- [React Query](https://react-query.tanstack.com/guides/ssr) - Documentation of react query ssr.
-- [React Context](https://reactjs.org/docs/context.html) - Documentation of react context for management state.
+- [React Query 3](https://react-query.tanstack.com/guides/ssr) - Documentation of react query ssr.
+- [React Context](https://reactjs.org/docs/context.html) - Documentation of react context.
 - [Eslint 7](https://eslint.org/docs/user-guide/getting-started) - Documentation of eslint.
 - [Prettier 2](https://prettier.io/docs/en/index.html) - Documentation of prettier.
 - [Husky 5](https://typicode.github.io/husky/#/) - Documentation of husky.
 - [Lint Staged 10](https://github.com/okonet/lint-staged) - Documentation of lint staged.
 - [Stein](https://docs.steinhq.com/) - Documentation of stein for tools API provides RESTful.
-- [Next SEO](https://github.com/shadowwalker/next-pwa) - Documentation of next seo for manage seo.
-- [Next PWA](https://github.com/shadowwalker/next-pwa) - Documentation of next pwa for manage pwa.
+- [Next SEO 4](https://github.com/shadowwalker/next-pwa) - Documentation of next seo.
+- [Next PWA 5](https://github.com/shadowwalker/next-pwa) - Documentation of next pwa.
+- [Date FNS 2](https://date-fns.org/docs/Getting-Started) - Documentation of date-fns.
+- [Lodash 4](https://lodash.com/docs/4.17.15) - Documentation of lodash.
 
 ## Usage
 
@@ -49,12 +51,14 @@ yarn install
 #### Development
 
 ```bash
+copy .env.example to .env.local
 yarn dev
 ```
 
 #### Production
 
 ```bash
+copy .env.example to .env.production
 yarn build
 yarn start
 ```

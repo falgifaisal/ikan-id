@@ -55,7 +55,10 @@ export function sortArrayObject(
   key: string,
   order = 'asc',
 ): string[] {
-  return arr.sort(compareValues(key, order));
+  if (arr?.length > 0) {
+    return arr.sort(compareValues(key, order));
+  }
+  return [];
 }
 
 export function createArrayNumber(count: number): number[] {
