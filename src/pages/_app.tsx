@@ -1,5 +1,5 @@
 import '../styles/globals.scss';
-import { useRef } from 'react';
+import { useState } from 'react';
 import { AppProps /* , AppContext */ } from 'next/app';
 import { DefaultSeo } from 'next-seo';
 import { QueryClient, QueryClientProvider } from 'react-query';
@@ -9,14 +9,22 @@ import { AppProvider } from 'context/app-context';
 import seoConfig from 'constants/seo';
 
 function App({ Component, pageProps }: AppProps) {
-  const queryClientRef: any = useRef();
-  if (!queryClientRef.current) {
-    queryClientRef.current = new QueryClient();
-  }
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            refetchOnWindowFocus: false,
+            refetchOnMount: false,
+            refetchOnReconnect: false,
+          },
+        },
+      }),
+  );
 
   return (
     <AppProvider>
-      <QueryClientProvider client={queryClientRef.current}>
+      <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
           <DefaultSeo {...seoConfig} />
           <Component {...pageProps} />

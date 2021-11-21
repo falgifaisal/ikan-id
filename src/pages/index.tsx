@@ -8,7 +8,9 @@ import Search from 'components/search';
 import FilterSort from 'components/filter-sort';
 import Result from 'components/result';
 
-function Home() {
+function Home(props: any) {
+  // eslint-disable-next-line no-console
+  console.log('render Home -> props', props);
   return (
     <Layout title="Home" description="Ini halaman utama">
       <Search />
@@ -19,11 +21,12 @@ function Home() {
 }
 
 export async function getServerSideProps() {
-  // const params: any = `?limit=${defaultLimit}&offset=0`;
-  const params: any = '';
+  const params: string = `?commodity=&province=&city=&size=&sort=`;
   await queryClient.prefetchQuery(['sizes', ''], () => fetchGetSize(''));
   await queryClient.prefetchQuery(['areas', ''], () => fetchGetArea(''));
-  await queryClient.prefetchQuery(['products', params], () => fetchGetProduct(params));
+  await queryClient.prefetchQuery(['products', params], () =>
+    fetchGetProduct(params),
+  );
 
   return {
     props: { dehydratedState: dehydrate(queryClient) },
