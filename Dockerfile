@@ -1,6 +1,6 @@
 # Set image from base on offical node lts alpine
 ARG VERSION=lts-alpine
-FROM node:$VERSION
+FROM node:16
 
 # Set label maintainer, version & description
 LABEL maintainer="danangekal@gmail.com"
