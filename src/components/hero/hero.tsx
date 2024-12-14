@@ -16,9 +16,9 @@ function Hero(): ReactElement {
         }`}
       >
         <div className="card-body">
-          <h2 className="card-title">Harga Ikan Indonesia</h2>
+          <h2 className="card-title">Harga Ikan-Ikan Terupdate di Indonesia</h2>
           <p className="card-text">
-            Berikut adalah kumpulan harga ikan di Indonesia menurut data
+            Berikut adalah kumpulan harga ikan-ikan terupdate di Indonesia menurut data
             {' '}
             <a
               href="https://efishery.com/"

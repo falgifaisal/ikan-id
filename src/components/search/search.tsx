@@ -43,7 +43,7 @@ function Search(): ReactElement {
         }`}
       >
         <div className="card-body">
-          <h5 className="card-title">Temukan Informasi Harga Ikan Indonesia</h5>
+          <h5 className="card-title">Temukan Informasi Harga Ikan-Ikan Terupdate di Indonesia</h5>
           <hr />
           <div className="d-flex">
             <div className="input-group">
@@ -52,7 +52,7 @@ function Search(): ReactElement {
                 type="text"
                 className="form-control form-control-sm"
                 name="search"
-                placeholder="Cari komoditas ikan"
+                placeholder="Cari komoditas Ikan-Ikan Terupdate"
                 value={search}
                 onChange={handleChange}
                 onKeyPress={handleKeyPress}
